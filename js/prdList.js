@@ -1,14 +1,5 @@
 const url = "https://openmarket.weniv.co.kr/";
 
-
-
-
-
-
-
-
-
-
 // 상품목록 가져오기
 const getPrdList = async function(){
     const fetchUrl = await fetch(`${url}/products`);

@@ -4,10 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오픈마켓페이지 Login</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <div class="ddd">로그인</div>
-    <script src="./js/script.js"></script>
+    <!-- contents -->
+    <div id="contents">
+        <div id="logWrap">
+            <div class="log_title"><a href="/index.html"><img src="../img/Logo-hodu.png" alt="hodu"></a></div>
+            <!-- login -->
+            <article class="member_log">
+                <h2>로그인</h2>
+                <div class="log_tab">
+                    <ul>
+                        <li class="buyer active"><a href="#none">구매회원 로그인</a></li>
+                        <li class="seller"><a href="#none">판매회원 로그인</a></li>
+                    </ul>
+                </div>
+                <fieldset>
+                    <div class="buyerLog">
+                        <label class="id"><input type="text" id="id" placeholder="아이디"></label>
+                        <label class="pw"><input type="password" id="pw" placeholder="비밀번호"></label>
+                        <p class="warning">아이디 또는 비밀번호가 일치하지 않습니다.</p>
+                        <button class="btnLogin btnColorH btnM">로그인</button>
+                    </div>
+                    <div class="sellerLog">
+                        <label class="id"><input type="text" id="id" placeholder="아이디"></label>
+                        <label class="pw"><input type="password" id="pw" placeholder="비밀번호"></label>
+                        <p class="warning">아이디 또는 비밀번호가 일치하지 않습니다.</p>
+                        <button class="btnLogin btnColorH btnM">로그인</button>
+                    </div>
+                </fieldset>
+                <ul class="log_info">
+                    <li><a href="../pages/join.html">회원가입</a></li>
+                    <li><a href="#none">비밀번호 찾기</a></li>
+                </ul>
+            </article>
+        </div>
+    </div>
+
+    <!-- script -->
+    <script src="../js/login.js"></script>
 </body>
 </html>
