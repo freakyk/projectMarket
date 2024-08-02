@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+/* Spoqa Han Sans Neo 100T, 300L, 400R, 500M, 700B */
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* common */
+:root{
+    --color-highlight:#21BF48;
+    --color-text:#CBD5DF;
+    --color-bg:#343F50;
+    --color-border:#1A202C;
+    --color-disabled:#4A5568;
+    --color-76:#767676;
+    --color-c4:#C4C4C4;
+    --color-positive:#439AFF;
+    --color-negative:#EB5757;
+}
+*{padding:0;margin:0;box-sizing: border-box;font-family: 'SpoqaHanSansNeo-Regular';}
+li{list-style: none;}
+a{color: inherit;text-decoration: none;}
+h1,h2,h3,h4,h5,h6,em,strong{font-weight: normal;}
+button{cursor: pointer;}
+.clearfix{content: "";display:block;clear: both;}
+img{max-width: 100%;}
+
+.ddd{width:100%;height:300px;font-size:50px;color:white;background: gray;display:flex;align-items: center;justify-content: center;}
+.wd1280{width:1280px;margin:0 auto;}
+
+/* custom --------------------------*/
+section > h2{opacity: 0;position: absolute;left:-99999px;z-index: -999;}
+
+#contents{padding:90px 0 0;max-width: 1920px;margin:0 auto;;}
+
+    /* header */
+    #header{width:100%;height:90px;background: white;position: fixed;left:0;top:0;z-index: 999;box-shadow: 0 4px 5px 0 rgba(0,0,0,0.1);}
+    #header > div{display:flex;align-items: center;justify-content: space-between;height:100%;}
+
+    #header .h_left{display: flex;align-items: center;}
+    #header h1{margin-right:30px;}
+    #header h1 a{height:100%;display: flex;align-items: center;}
+    #header h1 img{max-height:38px;}
+    #header .h_left form{width:400px;height:46px;border:2px solid var(--color-highlight);border-radius: 50px;background: white;;display:flex;align-items: center;overflow: hidden;}
+    #header .h_left form input{height:100%;border:none;text-indent: 22px;color:black;width:calc(100% - 56px);font-size:16px;}
+    #header .h_left form input::placeholder{color:var(--color-76)}
+    #header .h_left form input:focus{outline: none;}
+    #header .h_left form button{height:100%;border:none;width:28px;height:100%;background:transparent url(../img/icon-search.png) no-repeat 50%;background-size: 28px;padding:0 28px;}
+
+    #header .h_right{display: flex;align-items: center;justify-content: right;}
+    #header .h_right li{margin-left:26px;font-size:12px;color:var(--color-76);text-align: center;transition: 0.2s;}
+    #header .h_right li:hover{color:var(--color-highlight);}
+    #header .h_right li svg path{transition: 0.2s;}
+    #header .h_right li:hover svg path{stroke: var(--color-highlight);}
+    #header .h_right li + li{margin-left:26px;}
+
+
+    /* footer */
+
+
+
+
+
+
+
+
+
+
+    /* 404 */
+
+
+
+
+
+
+
+
+
+
+/* login --------------------------- */
+
+/* Join ----------------------------- */ 
+
+/* prdList -------------------------- */
+.prdList_banner{margin:0 0 80px;}
+
+.prdList_wrap .prdList{display:flex;flex-wrap: wrap;}
+.prdList_wrap .prdList > li{width:calc((100% - 140px) / 3);margin:0 70px 78px 0;}
+.prdList_wrap .prdList > li:nth-child(3n){margin:0 0 78px;}
+
+.prdList_wrap .prdList > li .thumb{border:1px solid var(--color-c4);border-radius: 10px;overflow: hidden;display: block;position: relative;overflow: hidden;padding-bottom:100%;margin-bottom:15px;}
+.prdList_wrap .prdList > li .thumb img{position: absolute;left:50%;top:0;transform: translateX(-50%);min-width: 100%;min-height: 100%;}
+
+.prdList_wrap .prdList > li .detail{}
+.prdList_wrap .prdList > li .detail .info{font-size: 16px;color:var(--color-76);}
+.prdList_wrap .prdList > li .detail .name{font-size:18px;color:black;margin:10px 0;}
+.prdList_wrap .prdList > li .detail .price{font-size:16px;color:black;}
+.prdList_wrap .prdList > li .detail .price strong{font-size:24px;font-weight: bold;padding-right:2px;}
+
+
+/* prdDetail ----------------------- */
+
+/* cart ----------------------------- */
+
+/* order --------------------------- */
