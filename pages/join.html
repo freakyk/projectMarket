@@ -7,8 +7,103 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <div id="contents">
-        <div class="ddd">회원가입</div>
+    <!-- contents -->
+    <div id="contents" class="join">
+        <div id="joinWrap" class="customForm">
+            <div class="custom_title"><a href="/index.html"><img src="../img/Logo-hodu.png" alt="hodu"></a></div>
+            <!-- join -->
+            <article class="custom_member">
+                <h2>회원가입</h2>
+                <div class="custom_tab">
+                    <ul>
+                        <li class="buyer active"><a href="#none">구매회원가입</a></li>
+                        <li class="seller"><a href="#none">판매회원가입</a></li>
+                    </ul>
+                </div>
+
+                <fieldset>
+                    <form class="joinform">
+                        <!-- 구매회원 -->
+                        <div class="buyerJoin">
+                            <label class="id">아이디
+                                <div>
+                                    <input type="text" id="id" placeholder="아이디"><button class="doubleCheck btnColorH btnMS">중복확인</button>
+                                </div>
+                            </label>
+                            <p class="entered">멋진 아이디네요 :)</p>
+                            <label class="pw">비밀번호<input type="password" id="pw" class="true" placeholder="비밀번호"></label>
+                            <label class="pwRe error">비밀번호 재확인<input type="password" id="pwRe"></label>
+                            <p class="warning">비밀번호가 일치하지 않습니다.</p>
+                            <label class="name">이름<input type="text" id="name"></label>
+                            <label class="phone">휴대폰번호
+                                <div class="phonewrap">
+                                    <div>
+                                        <input type="text" id="phoneFirst" value="010" readonly>
+                                        <ul>
+                                            <li>010</li>
+                                            <li>011</li>
+                                            <li>016</li>
+                                            <li>017</li>
+                                            <li>018</li>
+                                            <li>019</li>
+                                        </ul>
+                                    </div>
+                                    <input type="text" id="phoneMid"><input type="text" id="phoneLast">
+                                </div>
+                            </label>
+                        </div>
+                        <!-- 판매회원 -->
+                        <div class="sellerJoin">
+                            <label class="id">아이디
+                                <div>
+                                    <input type="text" id="id" placeholder="아이디"><button class="doubleCheck btnColorH btnMS">중복확인</button>
+                                </div>
+                            </label>
+                            <p class="entered">멋진 아이디네요 :)</p>
+                            <label class="pw">비밀번호<input type="password" id="pw" class="true" placeholder="비밀번호"></label>
+                            <label class="pwRe error">비밀번호 재확인<input type="password" id="pwRe"></label>
+                            <p class="warning">비밀번호가 일치하지 않습니다.</p>
+                            <label class="name">이름<input type="text" id="name"></label>
+                            <label class="phone">휴대폰번호
+                                <div class="phonewrap">
+                                    <div>
+                                        <input type="text" id="phoneFirst" value="010" readonly>
+                                        <ul>
+                                            <li>010</li>
+                                            <li>011</li>
+                                            <li>016</li>
+                                            <li>017</li>
+                                            <li>018</li>
+                                            <li>019</li>
+                                        </ul>
+                                    </div>
+                                    <input type="text" id="phoneMid"><input type="text" id="phoneLast">
+                                </div>
+                                <label class="regnum">사업자등록번호
+                                    <div>
+                                        <input type="text" id="regnum"><button class="doubleCheck btnColorH btnMS">인증</button>
+                                    </div>
+                                </label>
+                                <label class="storename">스토어 이름<input type="text" id="storename"></label>
+                            </label>
+                        </div>
+                    </form>
+                </fieldset>
+
+                <div class="join_info">
+                    <div class="agreeform">
+                        <input type="checkbox" id="agree" class="check">
+                        <label for="agree">
+                        </label>
+                        <p>호두샵의 <a href="#none">이용약관</a> 및 <a href="#none">개인정보처리방침</a>에 대한 내용을 확인하였고 동의합니다.</p>
+                    </div>
+                    <button class="btnJoin btnColorH btnM" disabled>가입하기</button>
+                </div>
+            </article>
+        </div>
     </div>
+
+    <!-- script -->
+    <script src="../js/join.js"></script>
 </body>
 </html>

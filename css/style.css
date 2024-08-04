@@ -38,10 +38,17 @@ article > h2,
 section > h2{opacity: 0;position: absolute;left:-99999px;z-index: -999;}
 
 .btnColorH{background: var(--color-highlight);color:white;border-radius: 5px;text-align: center;border:none;}
+.btnColorG{background:white;color:var(--color-76);border-radius: 5px;text-align: center;border:1px solid var(--color-c4);}
+.btnColorD{color:white;background:var(--color-76);border-radius: 5px;text-align: center;}
 .btnL{height: 68px;display: flex;align-items: center;justify-content: center;font-weight: bold;font-size:24px;;max-width: 100%;min-width: 220px;}
 .btnM{height: 60px;display: flex;align-items: center;justify-content: center;font-weight: bold;font-size:18px;padding:0 20px;max-width:100%;}
 .btnMS{height: 54px;display: flex;align-items: center;justify-content: center;font-weight: 700;font-size:16px;padding:0 20px;min-width: 166px;}
 .btnS{height: 40px;display: flex;align-items: center;justify-content: center;font-weight: 700;font-size:16px;padding:0 25px;min-width: 80px;;}
+
+button:disabled{background: var(--color-c4);}
+
+input[type="checkbox"].check + label{width:16px;height:16px;border:1px solid var(--color-c4);}
+input[type="checkbox"].check:checked + label{border:none;background: url(../img/check-fill-box.svg) no-repeat 50% 50% /contain;}
 
     /* header */
     #header{width:100%;height:90px;background: white;position: fixed;left:0;top:0;z-index: 999;box-shadow: 0 4px 5px 0 rgba(0,0,0,0.1);min-width: 1450px;}
@@ -87,64 +94,115 @@ section > h2{opacity: 0;position: absolute;left:-99999px;z-index: -999;}
     #footer .f_info address div span + span{padding-left:5px;margin-left:7px;position: relative}
     #footer .f_info address div span + span::before{content:"";display: block;width:1px;height:14px;background:var(--color-76);position: absolute;left:0;top:50%;transform: translateY(-50%);}
 
-    /* 404 */
-
-
-
-
-
-
-
-
-
+    /* error */
+    #contents.error{width:740px;margin:0 auto;padding-top:340px;}
+    #errorWrap{display: flex;align-items: center;justify-content: space-between;}
+    #errorWrap .error_text .text{margin-bottom:50px;font-size:16px;color:var(--color-76);}
+    #errorWrap .error_text .text .strong{margin-bottom:20px;font-weight: bold;font-size:36px;color:black;}
+    #errorWrap .error_text .btn{display: flex;align-items: center;}
+    #errorWrap .error_text .btn .btnM{flex:1;}
+    #errorWrap .error_text .btn .btnM + .btnM{margin-left:14px;}
 
 /* login --------------------------- */
-#logWrap{margin:100px auto 0;max-width: 550px;}
-#logWrap .log_title{margin:0 0 70px;text-align: center;}
-#logWrap .log_title img{max-height: 74px;}
+.customForm{margin:100px auto 0;width: 550px;}
+.customForm .custom_title{margin:0 0 70px;text-align: center;}
+.customForm .custom_title img{max-height: 74px;}
 
-#logWrap article{_background: beige;}
+.customForm article{width:100%;}
 
-#logWrap .log_tab ul{display: flex;align-items: flex-start;}
-#logWrap .log_tab li{height:80px;flex:1;font-size:18px;font-weight: 700;color:black;text-align: center;border-radius: 10px 10px 0 0;background: #f2f2f2;border:1px solid var(--color-c4);overflow: hidden;}
-#logWrap .log_tab li.active{z-index: 2;background: white;border-bottom: none;}
-#logWrap .log_tab li.buyer.active{border-right: none;}
-#logWrap .log_tab li.seller.active{border-left: none;}
-#logWrap .log_tab li a{display: flex;align-items: center;justify-content: center;height: 60px;}
+.customForm .custom_tab ul{display: flex;align-items: flex-start;}
+.customForm .custom_tab li{height:80px;flex:1;font-size:18px;font-weight: 700;color:black;text-align: center;border-radius: 10px 10px 0 0;background: #f2f2f2;border:1px solid var(--color-c4);overflow: hidden;}
+.customForm .custom_tab li.active{z-index: 2;background: white;border-bottom: none;}
+.customForm .custom_tab li.buyer.active{border-right: none;}
+.customForm .custom_tab li.seller.active{border-left: none;}
+.customForm .custom_tab li a{display: flex;align-items: center;justify-content: center;height: 60px;}
 
-#logWrap fieldset{border: none;padding:35px;position: relative;top:-20px;background: white;border: 1px solid var(--color-c4);border-radius: 0 10px 10px 10px;z-index: 1;}
-#logWrap fieldset.seller{border-radius: 10px 0 10px 10px;}
-#logWrap fieldset .buyerLog{display: block;}
-#logWrap fieldset .sellerLog{display: none;}
-#logWrap fieldset.seller .buyerLog{display:none;}
-#logWrap fieldset.seller .sellerLog{display: block;}
+.customForm fieldset{border: none;padding:34px;position: relative;top:-20px;background: white;border: 1px solid var(--color-c4);border-radius: 0 10px 10px 10px;z-index: 1;width:100%;}
+.customForm fieldset form{max-width: 480px;}
+.customForm fieldset.seller{border-radius: 10px 0 10px 10px;}
+.customForm fieldset .buyerLog{display: block;}
+.customForm fieldset .sellerLog{display: none;}
+.customForm fieldset.seller .buyerLog{display:none;}
+.customForm fieldset.seller .sellerLog{display: block;}
 
-#logWrap fieldset label{margin:0 0 6px;display: block;}
-#logWrap fieldset label.pw{margin:0 0 25px;}
-#logWrap fieldset label input{width:100%;height:60px;border:none;font-size:16px;color:black;;border-bottom: 1px solid var(--color-c4);}
-#logWrap fieldset label input::placeholder{color:var(--color-76);}
-#logWrap fieldset label input:focus{outline: none;}
-#logWrap fieldset label input:active{outline: none;border-color: var(--color-highlight);}
-#logWrap fieldset .warning{color:var(--color-negative);font-weight: 700;font-size:16px;display: none;margin:0 0 -10px}
-#logWrap fieldset .btnLogin{margin:35px 0 0;display: block;width: 100%;transition: 0.2s;}
-#logWrap fieldset .btnLogin:hover{background: var(--color-76);}
+.customForm fieldset .logform label{margin:0 0 6px;display: block;}
+.customForm fieldset .logform label.pw{margin:0 0 25px;}
+.customForm fieldset .logform label input[type="password"],
+.customForm fieldset .logform label input[type="text"]{width:100%;height:60px;border:none;font-size:16px;color:black;;border-bottom: 1px solid var(--color-c4);border-radius:0;padding:0;margin:0;}
 
-#logWrap .log_info{margin:10px auto 0;display:flex;align-items: center;justify-content: center;}
-#logWrap .log_info li{font-size:16px;color:#333333;transition: 0.2s;}
-#logWrap .log_info li:hover{color:var(--color-highlight);}
-#logWrap .log_info li + li{padding-left:14px;margin-left:15px;position: relative;}
-#logWrap .log_info li + li:before{content:"";display: block;width:1px;height:14px;background:var(--color-76);position: absolute;left:0;top:50%;transform: translateY(-50%);}
+.customForm fieldset .warning{font-weight: 700;}
 
-/* Join ----------------------------- */ 
+.customForm .log_info{margin:10px auto 0;display:flex;align-items: center;justify-content: center;}
+.customForm .log_info li{font-size:16px;color:#333333;transition: 0.2s;}
+.customForm .log_info li:hover{color:var(--color-highlight);}
+.customForm .log_info li + li{padding-left:14px;margin-left:15px;position: relative;}
+.customForm .log_info li + li:before{content:"";display: block;width:1px;height:14px;background:var(--color-76);position: absolute;left:0;top:50%;transform: translateY(-50%);}
 
+/* Join ----------------------------- */
+#contents.join{padding:70px 0;} 
+#joinWrap{margin:0 auto;}
 
+.customForm fieldset .buyerJoin{display: block;}
+.customForm fieldset .sellerJoin{display: none;}
+.customForm fieldset.seller .buyerJoin{display:none;}
+.customForm fieldset.seller .sellerJoin{display: block;}
 
+.customForm fieldset label{margin:0 0 10px;display: block;font-size:16px;color:var(--color-76);}
+.customForm fieldset label input[type="password"],
+.customForm fieldset label input[type="text"]{width:100%;height:54px;border:1px solid var(--color-c4);font-size:16px;color:black;;border-bottom: 1px solid var(--color-c4);border-radius: 5px;padding:0 16px;margin:8px 0 0;transition: 0.2s;}
+.customForm fieldset label input[type="password"]::placeholder,
+.customForm fieldset label input[type="text"]::placeholder{color:var(--color-76);}
+.customForm fieldset label input[type="password"]:focus,
+.customForm fieldset label input[type="text"]:focus,
+.customForm fieldset label input[type="password"]:active,
+.customForm fieldset label input[type="text"]:active{outline: none;border-color: var(--color-highlight);}
 
+.customForm fieldset label.error input[type="password"]:focus,
+.customForm fieldset label.error input[type="text"]:focus,
+.customForm fieldset label.error input[type="password"]:active,
+.customForm fieldset label.error input[type="text"]:active,
+.customForm fieldset label.error input[type="password"],
+.customForm fieldset label.error input[type="text"]{border-color: var(--color-negative);}
 
+.customForm fieldset label.regnum > div,
+.customForm fieldset label.id > div{display: flex;align-items: center;justify-content: space-between;}
+.customForm fieldset label.regnum > div button,
+.customForm fieldset label.id > div button{min-width: 122px;flex-shrink: 0;margin:10px 0 0 12px;width:auto;}
+.customForm fieldset label.storename,
+.customForm fieldset label.phone{margin:0;}
+.customForm fieldset label.phone .phonewrap{display: flex;align-items: center;justify-content: space-between;}
+.customForm fieldset label.phone .phonewrap input{width:152px;margin:8px 0 0;}
+.customForm fieldset label.phone .phonewrap input#phoneMid{margin:8px 12px 0;}
+.customForm fieldset label.phone .phonewrap > div{position: relative;}
+.customForm fieldset label.phone .phonewrap > div input{background: url(../img/icon-down-arrow.svg) no-repeat 90% 50%;cursor: pointer;transition: border 0.2s;}
+.customForm fieldset label.phone .phonewrap > div ul{position: absolute;left:0;top:66px;width:100%;height:150px;border:1px solid var(--color-c4);border-radius: 5px;;overflow: auto;display: none;}
+.customForm fieldset label.phone .phonewrap > div.show input{background: url(../img/icon-up-arrow.svg) no-repeat 90% 50%;cursor: pointer;}
+.customForm fieldset label.phone .phonewrap > div.show ul{display: block;}
+.customForm fieldset label.phone .phonewrap > div ul::-webkit-scrollbar{width:16px;}
+.customForm fieldset label.phone .phonewrap > div ul::-webkit-scrollbar-track{background: #f2f2f2;;}
+.customForm fieldset label.phone .phonewrap > div ul::-webkit-scrollbar-thumb{height:70%;background: var(--color-c4);border-radius: 10px;background-clip: padding-box;border:5px solid #f2f2f2;}
+.customForm fieldset label.phone .phonewrap > div ul li{font-size:16px;color:black;font-weight: 700;padding:10px 0;text-align: center;background: white;cursor: pointer;}
+.customForm fieldset label.phone .phonewrap > div ul li:hover{background: #e0e0e0;}
+.customForm fieldset label.name,
+.customForm fieldset label.regnum{margin-top:50px;}
 
+.customForm fieldset .joinform label.pw input,
+.customForm fieldset .joinform label.pwRe input{background: white url(../img/icon-check-off.svg) no-repeat 96% 50%;padding-right:60px;transition: 0.2s;}
+.customForm fieldset .joinform label.pw input.true,
+.customForm fieldset .joinform label.pwRe input.true{background: white url(../img/icon-check-on.svg) no-repeat 96% 50%;}
 
+.customForm fieldset .warning{color:var(--color-negative);font-weight:normal;font-size:16px;display: none;margin:0 0 12px}
+.customForm fieldset .entered{color:var(--color-highlight);font-weight:normal;font-size:16px;_display: none;margin:0 0 12px;}
+.customForm fieldset label.error + .warning{display: block;}
+.customForm fieldset .btnColorH{margin:35px 0 0;display: block;width: 100%;transition: 0.2s;}
+.customForm fieldset .btnColorH:hover{background: var(--color-76);}
 
-
+.customForm .join_info{max-width: 480px;margin:10px auto 0;}
+.customForm .join_info .agreeform{display:flex;align-items: baseline;justify-content: left;color:var(--color-76);font-size:16px;}
+.customForm .join_info input[type="checkbox"]{display:none;}
+.customForm .join_info input[type="checkbox"] + label{margin-right:10px;cursor: pointer;flex-shrink: 0;}
+.customForm .join_info .agreeform a{font-weight: bold;text-decoration: underline;}
+.customForm .join_info .btnJoin{width:100%;margin:30px auto 0;}
 
 /* prdList -------------------------- */
 .prdList_banner{margin:0 0 80px;}
@@ -167,11 +225,60 @@ section > h2{opacity: 0;position: absolute;left:-99999px;z-index: -999;}
 .prdList_wrap .prdList > li .detail .price strong{font-size:24px;font-weight: bold;padding-right:3px;}
 
 /* prdDetail ----------------------- */
+#contents.detail > div{padding:80px 0;}
 
+#prdOptWrap{display:flex;align-items: flex-start;justify-content: space-between;margin:0 0 140px;}
+#prdThumb{width:600px;}
+#prdThumb img{width:100%;display: block;}
 
+#prdOption{width:630px;display: flex;justify-content: space-between;flex-direction: column;min-height:600px;}
+#prdOption .optItem{font-size:18px;color:black;}
+#prdOption .optItem .summary_desc{color:var(--color-76);margin-bottom:15px;line-height: 1.3;}
+#prdOption .optItem .prd_name{font-size:36px;color:black;margin-bottom:20px;line-height: 1.3;}
+#prdOption .optItem .price strong{font-size:36px;color:black;font-weight: bold;}
 
+#prdOption .optQuan{font-size:16px;color:black;width:100%;;}
+#prdOption .optQuan .opt_delivery{color:var(--color-76)}
+#prdOption .optQuan .opt_delivery span + span{padding-left:18px;position: relative;}
+#prdOption .optQuan .opt_delivery span + span::before{content:"/";display: block;position: absolute;left:5px;top:0;}
+#prdOption .optQuan .opt_quanity{margin:20px 0 0;padding:30px 0;border-top:2px solid var(--color-c4);border-bottom:2px solid var(--color-c4);}
 
+.quanityWrap{display:flex;align-items: center;justify-content: center;width:150px;border:1px solid var(--color-c4);border-radius: 5px;overflow:hidden;height:50px;}
+.quanityWrap .quan,
+.quanityWrap input{flex:1;height:100%;width:calc(100% / 3);}
+.quanityWrap input{border:none;border-right:1px solid var(--color-c4);border-left:1px solid var(--color-c4);color:black;font-size:18px;text-align: center;cursor:default}
+.quanityWrap input:focus{outline: none;}
+.quanityWrap input[type="number"]::-webkit-outer-spin-button,
+.quanityWrap input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;margin: 0;}
+.quanityWrap .quan{background: white;position: relative;cursor: pointer;}
+.quanityWrap .quan.up::after,
+.quanityWrap .quan.down::before,
+.quanityWrap .quan.up::before{content:"";display: block;width:20px;height:2px;background: var(--color-c4);position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);}
+.quanityWrap .quan.up::after{transform: translate(-50%,-50%) rotate(90deg);}
 
+#prdOption .optAct .totalprice{padding:32px 0 26px;display:flex;align-items: baseline;justify-content: space-between;font-size:18px;color:black;font-weight: 700;}
+#prdOption .optAct .totalprice .total{font-weight: normal;font-size:18px;color:var(--color-76);display: flex;align-items: baseline;justify-content: right;}
+#prdOption .optAct .totalprice .total p{padding-right:14px;margin-right:12px;position: relative;}
+#prdOption .optAct .totalprice .total p::after{content:"";display: block;width:1px;height:18px;background: var(--color-c4);position: absolute;right:0;top:50%;transform: translate(-50%,-50%);}
+#prdOption .optAct .totalprice .total p span{font-weight: bold;color: var(--color-highlight);}
+#prdOption .optAct .totalprice .total .price{color: var(--color-highlight);;}
+#prdOption .optAct .totalprice .total .price strong{font-weight: bolder;font-size:36px;padding-right:3px;}
+
+#prdOption .optAct .actionbtn{display: flex;align-items: center;justify-content: space-between;}
+#prdOption .optAct .actionbtn a{flex:1;}
+#prdOption .optAct .actionbtn a.buy{flex:2;}
+#prdOption .optAct .actionbtn a + a{margin-left:14px;}
+
+#contents .detailTab{display:flex;align-items: center;justify-content: center;width:100%;margin:0 0 50px;}
+#contents .detailTab li{flex:1;height:60px;background: white;font-size:18px;color:var(--color-76);text-align: center;transition: 0.05s;position: relative;line-height: 60px;cursor: pointer;}
+#contents .detailTab li::after{content:"";display:block;width:100%;height:6px;background:#e0e0e0;position: absolute;left:0;bottom:0;transition: 0.05s;}
+#contents .detailTab li:hover,
+#contents .detailTab li.active{color:var(--color-highlight);}
+#contents .detailTab li:hover::after,
+#contents .detailTab li.active::after{background: var(--color-highlight);}
+
+#contents #detailCon ul li{display:none;}
+#contents #detailCon ul li#prdDetail{display:block;}
 
 /* cart ----------------------------- */
 
