@@ -6,9 +6,10 @@
     <title>오픈마켓페이지 Main</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        main ul{margin:100px auto 0;flex-direction: column;padding:50px 0;;}
-        main li{list-style: circle;}
-        main li:hover a{color: var(--color-highlight);}
+        main ul{margin:0 auto;padding:50px 0;flex-wrap: wrap;}
+        main li{width:50%;text-align: center;}
+        main li:nth-child(even){border-left:1px solid white;}
+        main li a:hover{color: var(--color-highlight);}
     </style>
 </head>
 <body>
@@ -63,14 +64,17 @@
     <!-- contents -->
     <div id="contents">
         <main>
-            <ul class="ddd" style="width: 1280px;height: auto;font-size: 30px;line-height: 2;">
-                <li><a href="./pages/login.html">(필)로그인 페이지</a></li>
-                <li><a href="./pages/join.html">회원가입 페이지</a></li>
-                <li><a href="./pages/prdList.html">(필)상품 목록 페이지</a></li>
-                <li><a href="./pages/prdDetail.html">상품 상세 페이지</a></li>
-                <li><a href="./pages/cart.html">(필)장바구니 페이지</a></li>
-                <li><a href="./pages/order.html">주문 결제 페이지</a></li>
-                <li><a href="./pages/error.html">오류 404 페이지</a></li>
+            <div id="titleArea">
+                <h2 class="title">FE 오픈마켓구현 프로젝트</h2>
+            </div>
+            <ul class="ddd" style="width: 700px;height: auto;font-size: 30px;line-height: 2;justify-content: right;">
+                <li><a href="./pages/login.html">(필)로그인</a></li>
+                <li><a href="./pages/join.html">회원가입</a></li>
+                <li><a href="./pages/prdList.html">(필)상품 목록</a></li>
+                <li><a href="./pages/prdDetail.html">상품 상세</a></li>
+                <li><a href="./pages/cart.html">(필)장바구니</a></li>
+                <li><a href="./pages/order.html">주문 결제</a></li>
+                <li><a href="./pages/error.html">오류 404</a></li>
             </ul>
         </main>
     </div>
@@ -127,6 +131,5 @@
             </div>
         </div>
     </footer>
-
 </body>
 </html>

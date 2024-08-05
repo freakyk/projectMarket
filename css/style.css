@@ -49,6 +49,9 @@ button:disabled{background: var(--color-c4);}
 
 input[type="checkbox"].check + label{width:16px;height:16px;border:1px solid var(--color-c4);}
 input[type="checkbox"].check:checked + label{border:none;background: url(../img/check-fill-box.svg) no-repeat 50% 50% /contain;}
+input[type="checkbox"].checkR{display: none;}
+input[type="checkbox"].checkR + label{width:20px;height:20px;border:2px solid var(--color-highlight);border-radius: 50%;flex-shrink: 0;display: block;margin:0 auto;cursor: pointer;}
+input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-Fill.png) no-repeat 50% 50% /contain;border:none}
 
     /* header */
     #header{width:100%;height:90px;background: white;position: fixed;left:0;top:0;z-index: 999;box-shadow: 0 4px 5px 0 rgba(0,0,0,0.1);min-width: 1450px;}
@@ -66,8 +69,10 @@ input[type="checkbox"].check:checked + label{border:none;background: url(../img/
 
     #header .h_right{display: flex;align-items: center;justify-content: right;}
     #header .h_right li{margin-left:26px;font-size:12px;color:var(--color-76);text-align: center;transition: 0.2s;}
-    #header .h_right li:hover{color:var(--color-highlight);}
     #header .h_right li svg path{transition: 0.2s;}
+    #header .h_right li.active,
+    #header .h_right li:hover{color:var(--color-highlight);}
+    #header .h_right li.active svg path,
     #header .h_right li:hover svg path{stroke: var(--color-highlight);}
     #header .h_right li + li{margin-left:26px;}
     #header .h_right li.h_mypage{display: none;}
@@ -281,6 +286,71 @@ input[type="checkbox"].check:checked + label{border:none;background: url(../img/
 #contents #detailCon ul li#prdDetail{display:block;}
 
 /* cart ----------------------------- */
+#titleArea{padding:54px 0 52px;}
+#titleArea .title{text-align: center;font-weight: bolder;font-size:44px;color:black;}
+
+#cartWrap .table ul li{padding:17px 0;}
+
+#cartWrap .table .head{background: #f2f2f2;margin-bottom:35px;border-radius: 10px;display: flex;align-items: center;width:100%;}
+#cartWrap .table .head li{font-size:18px;color:black;font-weight: normal;max-height: 60px;text-align: center;}
+#cartWrap .table .head li:nth-child(1){width:76px;flex-shrink: 0;}
+#cartWrap .table .head li:nth-child(2){width:-webkit-fill-available;}
+#cartWrap .table .head li:nth-child(3){width:246px;flex-shrink: 0;}
+#cartWrap .table .head li:nth-child(4){width:330px;flex-shrink: 0;}
+
+#cartWrap .table .body{display: flex;flex-direction: column;}
+#cartWrap .table .body li{border-radius: 10px;border:2px solid #e0e0e0;display: flex;text-align: center;position: relative;}
+#cartWrap .table .body li + li{margin-top:10px;}
+#cartWrap .table .body li > div{display: flex;flex-direction: column;justify-content: center;}
+#cartWrap .table .body li .cart_check{width:76px;flex-shrink: 0;}
+#cartWrap .table .body li .cart_thumb{width:184px;flex-shrink: 0;padding:0 12px;}
+#cartWrap .table .body li .cart_thumb img{width:100%;border-radius: 10px;display: block;}
+#cartWrap .table .body li .cart_info{width:-webkit-fill-available;text-align: left;padding:6px 24px 16px;justify-content: space-between;}
+#cartWrap .table .body li .cart_info .optItem{font-size:14px;color:black;}
+#cartWrap .table .body li .cart_info .optItem .summary_desc{color:var(--color-76);margin-bottom:10px;line-height: 1.3;}
+#cartWrap .table .body li .cart_info .optItem .prd_name{font-size:18px;color:black;margin-bottom:10px;line-height: 1.3;}
+#cartWrap .table .body li .cart_info .optItem .price,
+#cartWrap .table .body li .cart_info .optItem .price strong{font-size:16px;color:black;font-weight: bold;}
+#cartWrap .table .body li .cart_info .optDel{font-size:14px;color:var(--color-76)}
+#cartWrap .table .body li .cart_info .optDel span + span{padding-left:14px;position: relative;}
+#cartWrap .table .body li .cart_info .optDel span + span::before{content:"/";display: block;position: absolute;left:4px;top:0;}
+#cartWrap .table .body li .cart_quan{width:246px;flex-shrink: 0;padding:0 48px}
+#cartWrap .table .body li .cart_price{width:330px;flex-shrink: 0;padding:0 100px;}
+#cartWrap .table .body li .cart_price .price{font-size: 18px;color:var(--color-negative);font-weight: bolder;margin-bottom:25px;}
+#cartWrap .table .body li .cart_price .price strong{font-weight: bolder;}
+#cartWrap .table .body li .cart_price .delete{position: absolute;right:20px;top:20px;z-index: 10;width:22px;height:22px;cursor: pointer;}
+#cartWrap .table .body li .cart_price .delete::before,
+#cartWrap .table .body li .cart_price .delete::after{content:"";display: block;position: absolute;top:50%;left:50%;transform: translate(-50%,-50%) rotate(45deg);width:22px;height:2px;background: #e0e0e0;;}
+#cartWrap .table .body li .cart_price .delete::after{transform: translate(-50%,-50%) rotate(-45deg);}
+
+#cartWrap .priceSum > div{padding:80px 0;}
+#cartWrap .priceSum > div > ul{display:flex;align-items: center;width:100%;background: #f2f2f2;border-radius: 10px;overflow: hidden;}
+#cartWrap .priceSum > div > ul li{flex:1;display: flex;flex-direction: column;justify-content: center;align-items: center;font-size:16px;color:black;font-weight: normal;min-height: 150px;}
+#cartWrap .priceSum > div > ul li p{margin-bottom:10px;}
+#cartWrap .priceSum > div > ul li div{display:flex;align-items: baseline}
+#cartWrap .priceSum > div > ul li div strong{font-weight: bolder;font-size:24px;padding-right:3px;position: relative;top:2px}
+#cartWrap .priceSum > div > ul li.priceFinal p{font-weight: bold;margin-bottom:5px;}
+#cartWrap .priceSum > div > ul li.priceFinal div{font-size:18px;color:var(--color-negative);}
+#cartWrap .priceSum > div > ul li.priceFinal div strong{font-weight: bolder;font-size:36px;}
+#cartWrap .priceSum > div > ul li.priceDis{position: relative;}
+#cartWrap .priceSum > div > ul li.priceDis .symbol{position: absolute;top:50%;left:0;transform: translate(-50%,-50%);width:34px;height:34px;border-radius: 50%;z-index: 1;background: white;}
+#cartWrap .priceSum > div > ul li.priceDis .symbol::before,
+#cartWrap .priceSum > div > ul li.priceDis .symbol.plus::after{content:"";display:block;width:19px;height:2px;background: var(--color-c4);position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);}
+#cartWrap .priceSum > div > ul li.priceDis .symbol.plus{left:auto;right:-34px;}
+#cartWrap .priceSum > div > ul li.priceDis .symbol.plus::after{transform: translate(-50%,-50%) rotate(90deg);}
+
+#cartWrap .priceSum .btnToOrder{width:220px;margin:40px auto 0;}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
