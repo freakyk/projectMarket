@@ -50,6 +50,13 @@
                         </div>
                         <p>마이페이지</p>
                     </a>
+                    <div class="mp_dropbox">
+                        <span class="arrow"></span>
+                        <ul class="list_myp">
+                            <li class="mypage"><a href="#none">마이페이지</a></li>
+                            <li class="logout"><a href="#none">로그아웃</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -128,7 +135,10 @@
                     </li>
                 </ul>
             </div>
-
+            <div class="nodata">
+                <div>장바구니에 담긴 상품이 없습니다.</div>
+                <p>원하는 상품을 장바구니에 담아보세요!</p>
+            </div>
             <div class="priceSum">
                 <div class="wd1280">
                     <ul>
@@ -214,6 +224,48 @@
         </div>
     </footer>
 
+    <!-- modal -->
+    <div id="modal_editCount" class="customModal">
+        <div class="modalWrap">
+            <a href="javascript:;" class="close"></a>
+            <div class="contents">
+                <div class="quanityWrap">
+                    <div class="quan down"></div>
+                    <input class="quan_val" type="number" value="1" min="1" readonly>
+                    <div class="quan up"></div>
+                </div> 
+            </div>
+            <div class="btnArea">
+                <a href="#none" class="btnS btnColorG">취소</a>
+                <a href="#none" class="btnS btnColorH">수정</a>
+            </div>
+        </div>
+    </div>
+    <div id="modal_delete" class="customModal">
+        <div class="modalWrap">
+            <a href="javascript:;" class="close"></a>
+            <div class="contents">상품을 삭제하시겠습니까?</div>
+            <div class="btnArea">
+                <a href="#none" class="btnS btnColorG">취소</a>
+                <a href="#none" class="btnS btnColorH">확인</a>
+            </div>
+        </div>
+    </div>
+    <div id="modal_GoToLogin" class="customModal">
+        <div class="modalWrap">
+            <a href="javascript:;" class="close"></a>
+            <div class="contents">
+                로그인이 필요한 서비스입니다.<br>로그인 하시겠습니까?
+            </div>
+            <div class="btnArea">
+                <a href="#none" class="btnS btnColorG">아니오</a>
+                <a href="#none" class="btnS btnColorH">예</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- script -->
+    <script src="../js/cart.js"></script>
     <script src="../js/script.js"></script>
 </body>
 </html>
