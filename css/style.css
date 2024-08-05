@@ -287,7 +287,7 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 
 /* cart ----------------------------- */
 #titleArea{padding:54px 0 52px;}
-#titleArea .title{text-align: center;font-weight: bolder;font-size:44px;color:black;}
+#titleArea .title{text-align: center;font-weight: bolder;font-size:36px;color:black;}
 
 #cartWrap .table ul li{padding:17px 0;}
 
@@ -341,21 +341,31 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 
 #cartWrap .priceSum .btnToOrder{width:220px;margin:40px auto 0;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* order --------------------------- */
+#orderWrap .table ul li{padding:17px 0;}
+
+#orderWrap .table .head{background: #f2f2f2;;border-radius: 10px;display: flex;align-items: center;width:100%;}
+#orderWrap .table .head li{font-size:18px;color:black;font-weight: normal;max-height: 60px;text-align: center;width:230px;flex-shrink: 0;}
+#orderWrap .table .head li:nth-child(1){width:-webkit-fill-available;flex-shrink: initial;}
+
+#orderWrap .table .body{display: flex;flex-direction: column;}
+#orderWrap .table .body li{border-bottom:1px solid var(--color-c4);display: flex;text-align: center;position: relative;margin-top:8px;background: white;}
+#orderWrap .table .body li > div{display: flex;flex-direction: column;justify-content: center;}
+
+#orderWrap .table .body li .order_thumb{width:120px;flex-shrink: 0;padding:0 8px;}
+#orderWrap .table .body li .order_thumb img{width:100%;border-radius: 10px;display: block;}
+#orderWrap .table .body li .order_info{width:-webkit-fill-available;text-align: left;padding:12px 28px 0;justify-content: left;}
+#orderWrap .table .body li .order_info .optItem{font-size:14px;color:var(--color-76);;}
+#orderWrap .table .body li .order_info .optItem .summary_desc{margin-bottom:6px;line-height: 1.3;}
+#orderWrap .table .body li .order_info .optItem .prd_name{font-size:18px;color:black;margin-bottom:10px;line-height: 1.3;}
+
+#orderWrap .table .body li .order_discount,
+#orderWrap .table .body li .order_delivery,
+#orderWrap .table .body li .order_price{width:230px;flex-shrink: 0;font-size:18px;color:var(--color-76)}
+#orderWrap .table .body li .order_price .price,
+#orderWrap .table .body li .order_price .price strong{font-weight: bolder;color:black;}
+
+#orderWrap .table .foot{display: flex;align-items: baseline;justify-content: right;font-size:18px;color:black;margin:35px 0 100px;}
+#orderWrap .table .foot p{margin-right:10px;}
+#orderWrap .table .foot .priceFinal,
+#orderWrap .table .foot .priceFinal strong{font-weight: bolder;color:var(--color-negative);font-size:24px;}
