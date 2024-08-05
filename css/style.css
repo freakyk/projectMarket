@@ -205,8 +205,8 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 .customForm fieldset .joinform label.pw input.true,
 .customForm fieldset .joinform label.pwRe input.true{background: white url(../img/icon-check-on.svg) no-repeat 96% 50%;}
 
-.customForm fieldset .warning{color:var(--color-negative);font-weight:normal;font-size:16px;display: none;margin:0 0 12px}
-.customForm fieldset .entered{color:var(--color-highlight);font-weight:normal;font-size:16px;_display: none;margin:0 0 12px;}
+.customForm fieldset .warning{color:var(--color-negative);font-weight:normal;font-size:16px;display: none;margin:0 0 12px;display: none;}
+.customForm fieldset .entered{color:var(--color-highlight);font-weight:normal;font-size:16px;_display: none;margin:0 0 12px;display: none;}
 .customForm fieldset label.error + .warning{display: block;}
 .customForm fieldset .btnColorH{margin:35px 0 0;display: block;width: 100%;transition: 0.2s;}
 .customForm fieldset .btnColorH:hover{background: var(--color-76);}
@@ -408,7 +408,7 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 
 #orderForm .orderDel .info_order_receiver .info_address .addView{display: flex;align-items: center;justify-content: left;}
 #orderForm .orderDel .info_order_receiver .info_address .addView input[type="text"]{width:170px;}
-#orderForm .orderDel .info_order_receiver .info_address .addView button{margin-left:10px;flex-shrink: 0;}
+#orderForm .orderDel .info_order_receiver .info_address .addView button{margin-left:10px;flex-shrink: 0;width:154px;}
 #orderForm .orderDel .info_order_receiver .info_address .addForm{display: flex;flex-direction: column;}
 #orderForm .orderDel .info_order_receiver .info_address .addForm input[type="text"]{margin:8px 0 0;width:800px;}
 
