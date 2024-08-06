@@ -35,7 +35,7 @@ function makePrdList(e){
         $ul.append($li);
         $li.classList.add(`prd_${e[i].product_id}`)
         $li.append($a);
-        $a.setAttribute('href',`/pages/prdDetail.html?product_no=${e[i].product_id}`);
+        $a.setAttribute('href',`../pages/prdDetail.html?product_no=${e[i].product_id}`);
         $a.append($thumb);
         $a.append($detail);
         $thumb.append($thumbImg);
