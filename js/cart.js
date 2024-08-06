@@ -31,7 +31,9 @@ const cartData = async function(token){
             memCartData.count = 0;
             memCartData.next = null;
             memCartData.previous = null;
+            document.querySelector("#cartWrap .nodata").style.display = "block";
         }else{
+            document.querySelector("#cartWrap .priceSum").style.display = "block";
             cartList(memCartData.results);
         }
         // console.log("fetch내부", memCartData);
@@ -54,13 +56,19 @@ const cartList = function(el){
         const cart_item_checked = el[i].is_active;
         const cart_prd_id = el[i].product_id;
         const cart_quantity = el[i].quantity;
+
+        // 나중에 데이터있으면 씌우기
+        const cart_item_info = "백엔드 글로벌";
+        const cart_item_name = "딥러닝 개발자 무릎 담요";
         const cart_price = 17500;
         const cart_saleprice = 0;
+        const cart_saleAmount = cart_price - cart_saleprice;
         const delfee = 0;
+
         const cart_priceDot = cart_price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-        const cart_salepriceDot = cart_saleprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        const cart_salepriceDot = cart_saleAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         const cart_priceAll = cart_price * cart_quantity;
-        const cart_pricesaleAll = cart_saleprice * cart_quantity;
+        const cart_pricesaleAll = cart_saleAmount * cart_quantity;
         const cart_priceAllDot = cart_priceAll.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         const cart_pricesaleAllDot = cart_pricesaleAll.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
@@ -71,13 +79,13 @@ const cartList = function(el){
 
         const cartListForm = `
             <li class="prd_${cart_prd_id}">
-                <div class="cart_check"><input type="checkbox" name="" id="check_${cart_prd_id}" class="checkR" ${prdChecked}><label for="check_${cart_prd_id}"></label></div>
+                <div class="cart_check"><input type="checkbox" name="cart_prd_check" id="check_${cart_prd_id}" class="checkR" ${prdChecked}><label for="check_${cart_prd_id}"></label></div>
                 <div class="cart_thumb"><a href="javascript:;"><img src="../img/prdthumb.png" alt="product thumb"></a></div>
                 <div class="cart_info">
                     <div class="optItem">
                         <a href="javascript:;">
-                            <p class="summary_desc">백엔드 글로벌</p>
-                            <h2 class="prd_name">딥러닝 개발자 무릎 담요</h2>
+                            <p class="summary_desc">${cart_item_info}</p>
+                            <h2 class="prd_name">${cart_item_name}</h2>
                             <div class="price sale none"><strong>${cart_salepriceDot}</strong>원</div>
                             <div class="price origin"><strong>${cart_priceDot}</strong>원</div>
                         </a>
@@ -93,7 +101,7 @@ const cartList = function(el){
                 </div>
                 <div class="cart_price">
                     <div class="price origin"><strong>${cart_priceAllDot}</strong>원</div>
-                    <div class="price sale" style="display:none;"><strong>${cart_pricesaleAllDot}</strong>원</div>
+                    <div class="price sale" data-sale="${cart_saleprice * cart_quantity}" style="display:none;"><strong>${cart_pricesaleAllDot}</strong>원</div>
                     <div class="actionbtn">
                         <a href="#none" class="buy btnColorH btnS">주문하기</a>
                     </div>
@@ -111,7 +119,7 @@ const cartList = function(el){
         const sumDelivery = document.querySelector(".priceSum .priceDel strong");
         const sumFinal = document.querySelector(".priceSum .priceFinal strong");
         const itemsPrice = document.querySelectorAll("#cartWrap .body > li .cart_price .price.origin strong");
-        const itemsdisPrice = document.querySelectorAll("#cartWrap .body > li .cart_price .price.sale strong");
+        const itemsdisPrice = document.querySelectorAll("#cartWrap .body > li .cart_price .price.sale");
         const itemsdelPrice = document.querySelectorAll("#cartWrap .body > li .cart_info .optDel .del_opt2");
         let sum = 0;
         let sumdis = 0;
@@ -123,7 +131,7 @@ const cartList = function(el){
             sum += numbersOnly;
         })
         itemsdisPrice.forEach(function(el){
-            let pricedisText = el.textContent;
+            let pricedisText = el.getAttribute('data-sale');
             let disnumOnly = Number(pricedisText.replace(/\D/g, ""));
             sumdis += disnumOnly;
         })
@@ -137,13 +145,13 @@ const cartList = function(el){
         sumAll.textContent = sum.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         // 상품 할인
         sumDiscout.textContent = sumdis.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-        console.log(sum, sumdis);
         // 배송비
         sumDelivery.textContent = sumdel.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
         let sumDiscountNum = Number(sumDiscout.textContent.toString().replace(/\D/g, ""));
         let sumDeliveryNum = Number(sumDelivery.textContent.toString().replace(/\D/g, ""));
-        sumFinal.textContent = (sum - sumDiscountNum + sumDeliveryNum).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        let sumCalc = sum - sumDiscountNum + sumDeliveryNum;
+        sumFinal.textContent = sumCalc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     }
     prdSum();
 }
