@@ -140,7 +140,7 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 .customForm fieldset.seller .sellerLog{display: block;}
 
 .customForm fieldset .logform label{margin:0 0 6px;display: block;}
-.customForm fieldset .logform label.pw{margin:0 0 25px;}
+/* .customForm fieldset .logform label.pw{margin:0 0 25px;} */
 .customForm fieldset .logform label input[type="password"],
 .customForm fieldset .logform label input[type="text"]{width:100%;height:60px;border:none;font-size:16px;color:black;;border-bottom: 1px solid var(--color-c4);border-radius:0;padding:0;margin:0;}
 
@@ -208,6 +208,7 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 .customForm fieldset .warning{color:var(--color-negative);font-weight:normal;font-size:16px;display: none;margin:0 0 12px;display: none;}
 .customForm fieldset .entered{color:var(--color-highlight);font-weight:normal;font-size:16px;_display: none;margin:0 0 12px;display: none;}
 .customForm fieldset label.error + .warning{display: block;}
+.customForm fieldset .logwarn{margin-top:35px;}
 .customForm fieldset .btnColorH{margin:35px 0 0;display: block;width: 100%;transition: 0.2s;}
 .customForm fieldset .btnColorH:hover{background: var(--color-76);}
 
