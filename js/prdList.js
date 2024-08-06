@@ -12,7 +12,7 @@ getPrdList();
 function makePrdList(e){
     const $ul = document.querySelector('ul.prdList');
     const prdList = e;
-    // console.log(prdList);
+    console.log(prdList);
 
     for(let i=0;i<prdList.length;i++){
         const $li = document.createElement('li');

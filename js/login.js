@@ -65,7 +65,7 @@ sellerLoginBtn.addEventListener('click',function(e){
 
 // 로그인체크 response
 function loginCheck(e){
-    console.log(e);
+    // console.log(e);
     let lengthFail = 'FAIL_Message' in e;
     let lengthId = 'username' in e;
     let lengthPw = 'password' in e;
@@ -85,7 +85,6 @@ function loginCheck(e){
         }else{
             let warnEl = document.querySelector('.sellerLog p.logwarn');
             warnEl.style.display = "none";
-    
             // id값 오류메세지 체크
             if(lengthId == true){
                 let makeWarnEl = document.createElement('p');
@@ -98,7 +97,6 @@ function loginCheck(e){
                 let sellerID = document.querySelector('.sellerLog .id');
                 sellerID.classList.remove('error');
             }
-    
             // pw값 오류메세지 체크
             if(lengthPw == true){
                 let makeWarnEl = document.createElement('p');
@@ -111,7 +109,6 @@ function loginCheck(e){
                 let sellerPW = document.querySelector('.sellerLog .pw');
                 sellerPW.classList.remove('error');
             }
-    
             // 회원데이터 true
             if(e.id !== undefined && e.token !== undefined && e.user_type !== undefined){
                 localStorage.setItem('user_id',e.id);
@@ -136,7 +133,6 @@ function loginCheck(e){
         }else{
             let warnEl = document.querySelector('.buyerLog p.logwarn');
             warnEl.style.display = "none";
-    
             // id값 오류메세지 체크
             if(lengthId == true){
                 let makeWarnEl = document.createElement('p');
@@ -149,7 +145,6 @@ function loginCheck(e){
                 let buyerID = document.querySelector('.buyerLog .id');
                 buyerID.classList.remove('error');
             }
-    
             // pw값 오류메세지 체크
             if(lengthPw == true){
                 let makeWarnEl = document.createElement('p');
@@ -162,7 +157,6 @@ function loginCheck(e){
                 let buyerPW = document.querySelector('.buyerLog .pw');
                 buyerPW.classList.remove('error');
             }
-    
             // 회원데이터 true
             if(e.id !== undefined && e.token !== undefined && e.user_type !== undefined){
                 localStorage.setItem('user_id',e.id);
