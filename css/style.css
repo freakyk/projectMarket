@@ -249,7 +249,7 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 
 #prdOption{width:630px;display: flex;justify-content: space-between;flex-direction: column;min-height:600px;}
 #prdOption .optItem{font-size:18px;color:black;}
-#prdOption .optItem .summary_desc{color:var(--color-76);margin-bottom:15px;line-height: 1.5;}
+#prdOption .optItem .prd_store{color:var(--color-76);margin-bottom:15px;line-height: 1.5;}
 #prdOption .optItem .prd_name{font-size:36px;color:black;margin-bottom:20px;line-height: 1.2;}
 #prdOption .optItem .price strong{font-size:36px;color:black;font-weight: bold;}
 
@@ -314,7 +314,7 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 #cartWrap .table .body li + li{margin-top:10px;}
 #cartWrap .table .body li > div{display: flex;flex-direction: column;justify-content: center;}
 #cartWrap .table .body li .cart_check{width:76px;flex-shrink: 0;}
-#cartWrap .table .body li .cart_thumb{width:184px;flex-shrink: 0;padding:0 12px;}
+#cartWrap .table .body li .cart_thumb{width:184px;flex-shrink: 0;padding:0 12px;min-height: 184px;}
 #cartWrap .table .body li .cart_thumb img{width:100%;border-radius: 10px;display: block;}
 #cartWrap .table .body li .cart_info{width:-webkit-fill-available;text-align: left;padding:6px 24px 16px;justify-content: space-between;width:-moz-available;}
 #cartWrap .table .body li .cart_info .optItem{font-size:14px;color:black;}

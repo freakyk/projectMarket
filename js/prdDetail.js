@@ -1,4 +1,4 @@
-// 상품정보
+// 상품 detail 정보 불러오기
 const url = "https://openmarket.weniv.co.kr/";
 const prdNum = location.search.split("?")[1].split("=")[1];
 const detailData = async function(id){
@@ -14,6 +14,7 @@ const detailData = async function(id){
         })
         const prdData = await fetchUrl.json();
         initprdData(prdData);
+        console.log("상품 전체재고 stock", prdData.stock);
     }catch(error){
         console.log(error);
     }
@@ -23,12 +24,15 @@ detailData(prdNum);
 // 상세페이지 데이터 넣기
 const initprdData = function(e){
     const prdInfo = e;
-    console.log(prdInfo);
+    // console.log(prdInfo);
 
     const prd_Img = prdInfo.image;
-    const prd_Info = prdInfo.product_info;
+    const prd_store = prdInfo.store_name;
     const prd_Name = prdInfo.product_name;
     const prd_Ship = prdInfo.shipping_method;
+    const prd_Seller = prdInfo.seller;
+    const prd_Stock = prdInfo.stock;
+    const prd_Info = prdInfo.product_info;
     
     const prd_Count = 1;
     const prd_Price = prdInfo.price;
@@ -41,18 +45,13 @@ const initprdData = function(e){
     const prd_PriceFinalString = prd_PriceFinal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     const prd_PriceString = prd_Price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-    const prd_Seller = prdInfo.seller;
-    const prd_Stoke = prdInfo.stock;
-    const prd_StoreName = prdInfo.store_name;
-
-    
     const prdWrap = document.querySelector("#prdOptWrap");
     const prdForm = `
-        <div id="prdThumb"><img src="${prd_Img}" alt="product thumbnail"></div>
+        <div id="prdThumb"><img src="${prd_Img}" alt="${prd_Info}"></div>
         <div id="prdOption">
             <!-- 상품 옵션정보 -->
             <div class="optItem">
-                <p class="summary_desc">${prd_Info}</p>
+                <p class="prd_store" data-seller="${prd_Seller}">${prd_store}</p>
                 <h2 class="prd_name">${prd_Name}</h2>
                 <div class="price origin"><strong>${prd_PriceString}</strong> 원</div>
             </div>
@@ -64,7 +63,7 @@ const initprdData = function(e){
                     <div class="opt_quanity">
                         <div class="quanityWrap">
                             <div class="quan down"></div>
-                            <input class="quan_val" type="number" value="1" min="1" readonly>
+                            <input class="quan_val" type="number" value="1" min="1" max=${prd_Stock}">
                             <div class="quan up"></div>
                         </div>
                     </div>
@@ -74,14 +73,14 @@ const initprdData = function(e){
                 <div class="optAct">
                     <div class="totalprice">
                         <p>총 상품 금액</p>
-                        <div class="total">
+                        <div class="total" data-stock="${prd_Stock}">
                             <p>총 수량 <span class="prdCount">${prd_Count}</span>개</p>
                             <div class="price"><strong>${prd_PriceFinalString}</strong>원</div>
                         </div>
                     </div>
                     <div class="actionbtn">
-                        <a href="#none" class="buy btnColorH btnM">바로 구매</a>
-                        <a href="#none" class="cart btnColorD btnM">장바구니</a>
+                        <a href="../pages/order.html?product_no=${prdNum}" class="buy btnColorH btnM">바로 구매</a>
+                        <a href="../pages/cart.html?product_no=${prdNum}" class="cart btnColorD btnM">장바구니</a>
                     </div>
                 </div>
             </div>
@@ -89,9 +88,93 @@ const initprdData = function(e){
     `;
     prdWrap.insertAdjacentHTML("beforeend",prdForm);
 
-    // const prd_Quan = document.querySelector("#prdOption .quan_val").value;
-    // prd_Count = prd_Quan;
-    // console.log(prd_Count)
+    // 상품수량
+    let quanBtnDown = document.querySelector('.quanityWrap .down');
+    let quanBtnUp = document.querySelector('.quanityWrap .up');
+    let quanBtnInput = document.querySelector('.quanityWrap .quan_val');
+    let quanMax = document.querySelector('#prdOption .optAct .totalprice .total').getAttribute('data-stock');
+    let quanMin = document.querySelector('.quanityWrap .quan_val').getAttribute('min');
+    let cartAllCount = document.querySelector('#prdOption .optAct .totalprice .total .prdCount');
+    let cartAllPrice = document.querySelector('#prdOption .optAct .totalprice .total .price strong');
+    let cartBtn = document.querySelector('#prdOption .optAct .actionbtn .cart');
+    let buyBtn = document.querySelector('#prdOption .optAct .actionbtn .buy');
+    
+    if(quanMax == "0"){
+        // 품절
+        quanBtnUp.style.cursor = "unset";
+        quanBtnDown.style.cursor = "unset";
+        quanBtnInput.setAttribute('min',0);
+        quanBtnInput.setAttribute('value',0);
+        quanBtnInput.readOnly = true;
+        cartAllCount.textContent = quanBtnInput.value;
+        cartAllPrice.textContent = "0";
+        cartBtn.style.display = "none";
+        buyBtn.textContent = "SOLD OUT";
+        buyBtn.classList.add('btnColorD');
+        buyBtn.classList.remove('btnColorH');
+        buyBtn.setAttribute('href',"javascript:;")
+    }else{
+        // 수량증가
+        let quanUp = function(e){
+            let quanBtnInputVal = parseInt(quanBtnInput.value);
+            if(quanBtnInputVal < quanMax){
+                quanBtnInput.value = quanBtnInputVal + 1;
+                cartAllCount.textContent = quanBtnInput.value;
+                cartAllPrice.textContent = (prd_Price * quanBtnInput.value).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            }else{
+                alert(`주문최대수량을 초과했습니다. 현재 재고수량은 ${quanMax}개 입니다`);
+            }
+        };
+        // 수량감소
+        let quanDown = function(e){
+            let quanBtnInputVal = parseInt(quanBtnInput.value);
+            if(quanBtnInputVal > quanMin){
+                quanBtnInput.value = quanBtnInputVal - 1;
+                cartAllCount.textContent = quanBtnInput.value;
+                cartAllPrice.textContent = (prd_Price * quanBtnInput.value).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            }else{
+                alert('최소주문수량은 1개이상 입니다.');
+            }
+        };
+        quanBtnUp.addEventListener('click', quanUp);
+        quanBtnDown.addEventListener('click', quanDown);
+
+        // input change 이벤트
+        quanBtnInput.addEventListener('change',function(e){
+            let quanBtnInputVal = parseInt(quanBtnInput.value);
+            if(quanBtnInputVal > quanMax){
+                alert(`주문최대수량을 초과했습니다. 현재 재고수량은 ${quanMax}개 입니다`);
+                location.reload();
+            }else if(quanBtnInputVal < quanMin){
+                alert('최소주문수량은 1개이상 입니다.');
+                location.reload();
+            }else{
+                cartAllCount.textContent = quanBtnInput.value;
+                cartAllPrice.textContent = (prd_Price * quanBtnInput.value).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            }
+        });
+    }
+
+    // 비회원 구매, 장바구니 > 로그인모달
+    if(localStorage.getItem('user_token') == null){
+        if(quanMax == "0"){
+        }else{
+            cartBtn.setAttribute('href','javascript:;');
+            buyBtn.setAttribute('href','javascript:;');
+            cartBtn.addEventListener('click',function(e){
+                document.querySelector("#modal_GoToLogin").style.display = "block";
+            });
+            buyBtn.addEventListener('click',function(e){
+                document.querySelector("#modal_GoToLogin").style.display = "block";
+            });
+        }
+    }
+    document.querySelector("#modal_GoToLogin .btnColorG").addEventListener('click',function(e){
+        document.querySelector("#modal_GoToLogin").style.display = "none";
+    });
+
+
+
 
 
 
@@ -105,23 +188,6 @@ const initprdData = function(e){
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // tab event
 document.querySelector('.detailTab').addEventListener('click',function(e){
@@ -138,3 +204,4 @@ document.querySelectorAll('.detailTab li').forEach(function(e,i){
         document.querySelectorAll('#detailCon ul li')[i].style.display = "block";
     }
 })
+

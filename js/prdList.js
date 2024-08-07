@@ -20,7 +20,7 @@ function makePrdList(e){
         const $thumb = document.createElement('div');
         const $thumbImg = document.createElement('img');
         const $detail = document.createElement('div');
-        const $detailInfo = document.createElement('span');
+        const $detailStore = document.createElement('span');
         const $detailName = document.createElement('div');
         const $detailPrice = document.createElement('p');
         const $detailPriceNum = document.createElement('strong');
@@ -29,7 +29,7 @@ function makePrdList(e){
         $thumb.classList.add('thumb');
         $detail.classList.add('detail');
         $detailName.classList.add('name');
-        $detailInfo.classList.add('info');
+        $detailStore.classList.add('info');
         $detailPrice.classList.add('price');
 
         $ul.append($li);
@@ -39,12 +39,12 @@ function makePrdList(e){
         $a.append($thumb);
         $a.append($detail);
         $thumb.append($thumbImg);
-        $detail.append($detailInfo,$detailName,$detailPrice);
+        $detail.append($detailStore,$detailName,$detailPrice);
         $detailPrice.append($detailPriceNum);
         
         $li.classList.add = prdList[i].product_id;
         $thumbImg.src = prdList[i].image;
-        $detailInfo.textContent = prdList[i].product_info;
+        $detailStore.textContent = prdList[i].store_name;
         $detailName.textContent = prdList[i].product_name;
         $detailPrice.append(unit);
         $detailPriceNum.textContent = prdList[i].price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");

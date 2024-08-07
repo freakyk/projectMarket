@@ -9,11 +9,10 @@
     - 합쳐진 수량이 제품의 재고 수량 보다 많을 경우, 재고 수량이 초과 되었다는 모달창이 나타납니다.
 */
 
-
-
-// 회원 장바구니 데이터 Request
 const url = "https://openmarket.weniv.co.kr/";
 const memberToken = localStorage.getItem('user_token');
+
+// 회원 장바구니 데이터 Request
 const cartData = async function(token){
     try{
         const cartUrl = "cart/";
@@ -44,10 +43,10 @@ const cartData = async function(token){
 cartData(memberToken);
 
 // 장바구니목록 뿌리기
-const cartList = function(el){
+const cartList = async function(el){
     const cartBody = document.querySelector("#cartWrap ul.body");
     const allCartList = el;
-    // console.log(allCartList);
+    console.log(allCartList);
     
     // 상품 뿌리기
     for(let i=0;i<allCartList.length;i++){
@@ -57,13 +56,20 @@ const cartList = function(el){
         const cart_prd_id = el[i].product_id;
         const cart_quantity = el[i].quantity;
 
-        // 나중에 데이터있으면 씌우기
-        const cart_item_info = "백엔드 글로벌";
-        const cart_item_name = "딥러닝 개발자 무릎 담요";
-        const cart_price = 17500;
+        const getDetailData = await detailData(cart_prd_id);
+        const cart_item_store = getDetailData.store_name;
+        const cart_item_name = getDetailData.product_name;
+        const cart_price = getDetailData.price;
         const cart_saleprice = 0;
         const cart_saleAmount = cart_price - cart_saleprice;
-        const delfee = 0;
+        const cart_shipping_method = getDetailData.shipping_method;
+        let delfee = getDetailData.shipping_fee;
+        let delfeeString = delfee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        if(delfee == 0){
+            delfeeString = "무료배송";
+        }
+        const cart_item_thumb = getDetailData.image;
+        const cart_item_detailUrl = "../pages/prdDetail.html?product_no="+ cart_prd_id;
 
         const cart_priceDot = cart_price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         const cart_salepriceDot = cart_saleAmount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -80,17 +86,17 @@ const cartList = function(el){
         const cartListForm = `
             <li class="prd_${cart_prd_id}">
                 <div class="cart_check"><input type="checkbox" name="cart_prd_check" id="check_${cart_prd_id}" class="checkR" ${prdChecked}><label for="check_${cart_prd_id}"></label></div>
-                <div class="cart_thumb"><a href="javascript:;"><img src="../img/prdthumb.png" alt="product thumb"></a></div>
+                <div class="cart_thumb"><a href="${cart_item_detailUrl}"><img src="${cart_item_thumb}" alt="product thumb"></a></div>
                 <div class="cart_info">
                     <div class="optItem">
-                        <a href="javascript:;">
-                            <p class="summary_desc">${cart_item_info}</p>
+                        <a href="${cart_item_detailUrl}">
+                            <p class="summary_desc">${cart_item_store}</p>
                             <h2 class="prd_name">${cart_item_name}</h2>
                             <div class="price sale none"><strong>${cart_salepriceDot}</strong>원</div>
                             <div class="price origin"><strong>${cart_priceDot}</strong>원</div>
                         </a>
                     </div>
-                    <div class="optDel"><span class="del_opt1">택배배송</span><span class="del_opt2" data-fee="${delfee}">무료배송</span></div>
+                    <div class="optDel"><span class="del_opt1">${cart_shipping_method}</span><span class="del_opt2" data-fee="${delfee}">${delfeeString}</span></div>
                 </div>
                 <div class="cart_quan">
                     <div class="quanityWrap">
@@ -156,4 +162,21 @@ const cartList = function(el){
     prdSum();
 }
 
-
+// 상품 detail 정보 불러오기
+const detailData = async function(id){
+    const detailUrl = "products/";
+    const prdId = id;
+    try{
+        const fetchUrl = await fetch(`${url}${detailUrl}/${prdId}`,{
+            method : "GET",
+            headers: {
+                "content-Type" : "application/json"
+            },
+            body : JSON.stringify()
+        })
+        const prdData = await fetchUrl.json();
+        return prdData;
+    }catch(error){
+        console.log(error);
+    }
+}
