@@ -22,7 +22,7 @@ const detailData = async function(id){
 detailData(prdNum);
 
 // 상세페이지 데이터 넣기
-const initprdData = function(e){
+const initprdData = async function(e){
     const prdInfo = e;
     // console.log(prdInfo);
 
@@ -155,6 +155,25 @@ const initprdData = function(e){
         });
     }
 
+    // 장바구니 상품목록확인
+    const getCartItemInfo = await cartData(localStorage.getItem('user_token'));
+    let cartPrdList = [];
+    if(getCartItemInfo !== undefined){
+        const gettemResults = await getCartItemInfo.results;
+        gettemResults.forEach(function(e){
+            cartPrdList.push(e.product_id);
+        });        
+    }
+    const hasItems = cartPrdList.filter((e)=>{
+        return e == prdNum;
+    });
+    // console.log('현 장바구니 상품id', cartPrdList);
+    // console.log('현 상세페이지 상품id :', prdNum);
+    // console.log("상품있는지 :", hasItems.length);
+    let itemsExist = Boolean(hasItems.length);
+    // console.log("상품존재 boolean값 : ",itemsExist);
+    // console.log("상품최종갯수 :", cartAllCount.textContent);
+
     // 비회원 구매, 장바구니 > 로그인모달
     if(localStorage.getItem('user_token') == null){
         if(quanMax == "0"){
@@ -168,25 +187,30 @@ const initprdData = function(e){
                 document.querySelector("#modal_GoToLogin").style.display = "block";
             });
         }
+    }else{
+        if(hasItems.length > 0){
+            // 장바구니에 있는 상품이라면
+            cartBtn.setAttribute('href','javascript:;');
+            cartBtn.addEventListener('click',function(e){
+                cartAddData(localStorage.getItem('user_token'),prdNum,cartAllCount.textContent,itemsExist);
+                document.querySelector("#modal_GoToCart").style.display = "block";
+            });
+            document.querySelector("#modal_GoToCart .btnColorH").addEventListener('click',function(e){
+                e.target.setAttribute('href',"../pages/cart.html");
+            });
+            document.querySelector("#modal_GoToCart .btnColorG").addEventListener('click',function(e){
+                document.querySelector("#modal_GoToCart").style.display = "none";
+            });
+        }else{
+            cartBtn.setAttribute('href',"../pages/cart.html");
+            cartBtn.addEventListener('click',function(e){
+                cartAddData(localStorage.getItem('user_token'),prdNum,cartAllCount.textContent,itemsExist);
+            });
+        }
     }
     document.querySelector("#modal_GoToLogin .btnColorG").addEventListener('click',function(e){
         document.querySelector("#modal_GoToLogin").style.display = "none";
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 // tab event
@@ -205,3 +229,51 @@ document.querySelectorAll('.detailTab li').forEach(function(e,i){
     }
 })
 
+// 회원 장바구니 데이터 Request
+const cartData = async function(token){
+    try{
+        const cartUrl = "cart/";
+        const fetchUrl = await fetch(`${url}${cartUrl}`,{
+            method : "GET",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `JWT ${token}`
+            },
+            body : JSON.stringify()
+        });
+        const memCartData = await fetchUrl.json();
+        if(memCartData.results == undefined){
+            memCartData.results = [];
+            memCartData.count = 0;
+            memCartData.next = null;
+            memCartData.previous = null;
+        }else{
+            return memCartData;
+        }
+    }catch(error){
+        console.log(error);
+    }
+}
+
+// 상품 장바구니 추가하기
+const cartAddData = async function(token,id,finalquan,bool){
+    try{
+        const cartUrl = "cart/";
+        const fetchUrl = await fetch(`${url}${cartUrl}`,{
+            method : "POST",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `JWT ${token}`
+            },
+            body : JSON.stringify({
+                "product_id": id, 
+                "quantity": finalquan,
+                "check" : bool
+            })
+        });
+        const addData = await fetchUrl.json();
+        return addData;
+    }catch(error){
+        console.log(error);
+    }
+}
