@@ -46,6 +46,7 @@ const cartList = async function(el){
         const cart_quantity = el[i].quantity;
 
         const getDetailData = await detailData(cart_prd_id);
+        const cart_item_stock = getDetailData.stock;
         const cart_item_store = getDetailData.store_name;
         const cart_item_name = getDetailData.product_name;
         const cart_price = getDetailData.price;
@@ -88,9 +89,9 @@ const cartList = async function(el){
                     <div class="optDel"><span class="del_opt1">${cart_shipping_method}</span><span class="del_opt2" data-fee="${delfee}">${delfeeString}</span></div>
                 </div>
                 <div class="cart_quan">
-                    <div class="quanityWrap">
+                    <div class="quanityWrap" data-prdid="${cart_prd_id}" data-itemid="${cart_item_id}">
                         <div class="quan down"></div>
-                        <input class="quan_val" type="number" value="${cart_quantity}" min="1" readonly>
+                        <input class="quan_val" type="number" value="${cart_quantity}" min="1" max="${cart_item_stock}" readonly>
                         <div class="quan up"></div>
                     </div>
                 </div>
@@ -117,20 +118,118 @@ const cartList = async function(el){
         // 상품수량변경, 삭제, 체크박스선택, 주문하기 등 (선택수량만 금액체크)
 
 
-        const cartListQuanBtn = document.querySelectorAll("#cartWrap .cart_quan .quanityWrap");
-        console.log(cartListQuanBtn.length);
-
-
-
-
-
-
 
 
 
 
     }
-    
+
+
+    // 수량팝업 이벤트
+    function editEventModal() {
+        let editModal = document.querySelector('#modal_editCount');
+        let editModalDown = document.querySelector("#modal_editCount .quanityWrap .down");
+        let editModalInput = document.querySelector("#modal_editCount .quanityWrap .quan_val");
+        let editModalUp = document.querySelector("#modal_editCount .quanityWrap .up");
+        let editModalCancel = document.querySelector("#modal_editCount .btnColorG");
+        let editModalSubmit = document.querySelector("#modal_editCount .btnColorH");
+
+        // 수량모달 증감이벤트
+        editModalUp.addEventListener('click', function() {
+            let modalValue = parseInt(editModalInput.value);
+            let max = parseInt(editModalInput.getAttribute('max'));
+            if (modalValue < max) {
+                editModalInput.value = modalValue + 1;
+            } else {
+                alert(`주문최대수량을 초과했습니다. 현재 재고수량은 ${max}개 입니다`);
+            }
+        });
+        editModalDown.addEventListener('click', function() {
+            let modalValue = parseInt(editModalInput.value);
+            let min = parseInt(editModalInput.getAttribute('min'));
+            if (modalValue > min) {
+                editModalInput.value = modalValue - 1;
+            } else {
+                alert('최소주문수량은 1개이상 입니다.');
+            }
+        });
+
+        // 수량모달 버튼이벤트
+        editModalCancel.addEventListener('click', function(e) {
+            e.preventDefault();
+            editModal.style.display = "none";
+        });
+        editModalSubmit.addEventListener('click', function(e) {
+            e.preventDefault();
+            let newValue = editModalInput.value;
+            let itemId = editModal.getAttribute('data-itemid');
+            let prdId = editModal.getAttribute('data-prdid');
+
+
+            
+            let itemcheck = true;
+
+            editModal.style.display = "none";
+            editCount(memberToken, itemId, prdId, newValue, itemcheck);
+            document.querySelector(`li[data-itemid="${itemId}"] .quan_val`).value = newValue;
+        });
+    }
+
+    // 상품삭제 이벤트
+    function deleteEventModal(){
+        let deleteModal = document.querySelector('#modal_delete');
+        let deleteModalCancel = document.querySelector("#modal_delete .btnColorG");
+        let deleteModalSubmit = document.querySelector("#modal_delete .btnColorH");
+
+        deleteModalCancel.addEventListener('click',function(e){
+            e.preventDefault();
+            deleteModal.style.display = "none";
+        });
+        deleteModalSubmit.addEventListener('click',function(e){
+            e.preventDefault();
+            let itemId = deleteModal.getAttribute('data-itemid');
+            deleteModal.style.display = "none";
+            deleteItem(memberToken,itemId);
+            let itemElement = document.querySelector(`li[data-itemid="${itemId}"]`);
+            if (itemElement) itemElement.remove();
+        });
+    }
+
+    editEventModal();
+    deleteEventModal();
+
+    cartBody.addEventListener('click', function(e) {
+        // 수량팝업 이벤트위임
+        let eQuanWrap = e.target.closest('.quanityWrap');
+        let eQuan = e.target.closest('.quanityWrap .quan');
+        if (eQuan) {
+            // 클릭한 li에 있는 수량버튼
+            let targetPrdVal = eQuan.parentElement.querySelector('.quan_val').value;
+            let targetPrdMin = eQuan.parentElement.querySelector('.quan_val').getAttribute('min');
+            let targetPrdMax = eQuan.parentElement.querySelector('.quan_val').getAttribute('max');
+            let targetPrdId = eQuanWrap.getAttribute('data-prdid');
+            let targetItemId = eQuanWrap.getAttribute('data-itemid');
+            // 모달의 수량버튼
+            let editModal = document.querySelector('#modal_editCount');
+            let editModalInput = document.querySelector("#modal_editCount .quanityWrap .quan_val");
+            editModalInput.value = targetPrdVal;
+            editModalInput.setAttribute('min', targetPrdMin);
+            editModalInput.setAttribute('max', targetPrdMax);
+            editModal.setAttribute('data-prdid', targetPrdId);
+            editModal.setAttribute('data-itemid', targetItemId);
+            editModal.style.display = "block";
+        }
+
+        // 삭제이벤트 위임
+        let deleteBtn = e.target.closest('.delete');
+        if(deleteBtn){
+            let deleteModal = document.querySelector('#modal_delete');
+            let targetItemId = deleteBtn.closest('li').getAttribute('data-itemid');
+            deleteModal.style.display = "block";
+            deleteModal.setAttribute('data-itemid', targetItemId);
+        }
+    });
+
     // 상품 총합계
     function prdSum(){
         const sumAll = document.querySelector(".priceSum .priceAll strong");
@@ -216,5 +315,23 @@ const editCount = async function(token,cartid,prdid,editquan,bool){
         console.log(error);
     }
 }
-// 토큰, 상품아이디, 수정수량, 체크박스
-editCount(memberToken,2722,441,33,true);
+
+// 장바구니 수량 삭제 req
+const deleteItem = async function(token,cartid){
+    try{
+        const cartdelUrl = "cart/";
+        const fetchUrl = await fetch(`${url}${cartdelUrl}${cartid}/`,{
+            method : "DELETE",
+            headers : {
+                "Content-Type" : "application/json",
+                "Authorization" : `JWT ${token}`
+            }
+        })
+        const deleteData = await fetchUrl.json();
+        return deleteData;
+    }catch(error){
+        console.log(error);
+    }
+}
+
+
