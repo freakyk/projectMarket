@@ -1,14 +1,3 @@
-/*
-    - 장바구니에서 상품의 수량을 수정할 때, `+`나 `-` 버튼을 누르면 수량 수정을 위한 모달창이 나타납니다.
-      모달창에서 (상품 상세 페이지와 마찬가지로) 상품의 재고 수량을 초과하면 `+` 버튼은 비활성화됩니다.
-    - 선택된 정보만 총 상품금액과 할인, 배송비가 적용되어 총 결제할 가격이 나타나야 합니다.
-    - 상품의 `x` 버튼을 클릭할 시 상품 삭제를 재확인하는 모달 창이 중앙에 나타나야 합니다.
-    - 상품 삭제를 재확인하는 모달의 확인 버튼을 클릭하면 상품이 삭제되어야 합니다.
-    - 이미 장바구니에 넣은 제품을 다시 넣는 경우, 이전 수량과 합쳐집니다.
-    - 이미 넣은 제품의 수량 2개, 다시 넣은 제품의 수량 3개 ⇒ 장바구니에 들어간 상품의 수량은 총 5개)
-    - 합쳐진 수량이 제품의 재고 수량 보다 많을 경우, 재고 수량이 초과 되었다는 모달창이 나타납니다.
-*/
-
 const url = "https://openmarket.weniv.co.kr/";
 const memberToken = localStorage.getItem('user_token');
 
@@ -46,7 +35,7 @@ cartData(memberToken);
 const cartList = async function(el){
     const cartBody = document.querySelector("#cartWrap ul.body");
     const allCartList = el;
-    console.log(allCartList);
+    // console.log(allCartList);
     
     // 상품 뿌리기
     for(let i=0;i<allCartList.length;i++){
@@ -84,7 +73,7 @@ const cartList = async function(el){
         }
 
         const cartListForm = `
-            <li class="prd_${cart_prd_id}">
+            <li data-prdid="${cart_prd_id}" data-itemid="${cart_item_id}">
                 <div class="cart_check"><input type="checkbox" name="cart_prd_check" id="check_${cart_prd_id}" class="checkR" ${prdChecked}><label for="check_${cart_prd_id}"></label></div>
                 <div class="cart_thumb"><a href="${cart_item_detailUrl}"><img src="${cart_item_thumb}" alt="product thumb"></a></div>
                 <div class="cart_info">
@@ -116,6 +105,30 @@ const cartList = async function(el){
             </li>
         `;
         cartBody.insertAdjacentHTML('beforeend',cartListForm);
+
+        /*
+            - 장바구니에서 상품의 수량을 수정할 때, `+`나 `-` 버튼을 누르면 수량 수정을 위한 모달창이 나타납니다.
+            모달창에서 (상품 상세 페이지와 마찬가지로) 상품의 재고 수량을 초과하면 `+` 버튼은 비활성화됩니다.
+            - 선택된 정보만 총 상품금액과 할인, 배송비가 적용되어 총 결제할 가격이 나타나야 합니다.
+            - 상품의 `x` 버튼을 클릭할 시 상품 삭제를 재확인하는 모달 창이 중앙에 나타나야 합니다.
+            - 상품 삭제를 재확인하는 모달의 확인 버튼을 클릭하면 상품이 삭제되어야 합니다.
+            - 합쳐진 수량이 제품의 재고 수량 보다 많을 경우, 재고 수량이 초과 되었다는 모달창이 나타납니다.
+        */
+        // 상품수량변경, 삭제, 체크박스선택, 주문하기 등 (선택수량만 금액체크)
+
+
+        const cartListQuanBtn = document.querySelectorAll("#cartWrap .cart_quan .quanityWrap");
+        console.log(cartListQuanBtn.length);
+
+
+
+
+
+
+
+
+
+
     }
     
     // 상품 총합계
@@ -167,7 +180,7 @@ const detailData = async function(id){
     const detailUrl = "products/";
     const prdId = id;
     try{
-        const fetchUrl = await fetch(`${url}${detailUrl}/${prdId}`,{
+        const fetchUrl = await fetch(`${url}${detailUrl}${prdId}`,{
             method : "GET",
             headers: {
                 "content-Type" : "application/json"
@@ -180,3 +193,28 @@ const detailData = async function(id){
         console.log(error);
     }
 }
+
+// 장바구니 수량 수정 req
+const editCount = async function(token,cartid,prdid,editquan,bool){
+    try{
+        const carteditUrl = "cart/";
+        const fetchUrl = await fetch(`${url}${carteditUrl}${cartid}/`,{
+            method : "PUT",
+            headers : {
+                "Content-Type" : "application/json",
+                "Authorization" : `JWT ${token}`
+            },
+            body : JSON.stringify({
+                "product_id": prdid,
+                "quantity": editquan,
+                "is_active": bool
+            })
+        })
+        const editData = await fetchUrl.json();
+        return editData;
+    }catch(error){
+        console.log(error);
+    }
+}
+// 토큰, 상품아이디, 수정수량, 체크박스
+editCount(memberToken,2722,441,33,true);

@@ -21,7 +21,7 @@ if(localToken == null){
         e.preventDefault();
         e.stopPropagation();
         $header.classList.remove('login');
-        // local strage delete
+        // local storage delete
         localStorage.removeItem('user_id');
         localStorage.removeItem('user_token');
         localStorage.removeItem('user_type');

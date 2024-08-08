@@ -159,8 +159,8 @@ const initprdData = async function(e){
     const getCartItemInfo = await cartData(localStorage.getItem('user_token'));
     let cartPrdList = [];
     if(getCartItemInfo !== undefined){
-        const gettemResults = await getCartItemInfo.results;
-        gettemResults.forEach(function(e){
+        const getitemResults = await getCartItemInfo.results;
+        getitemResults.forEach(function(e){
             cartPrdList.push(e.product_id);
         });        
     }
