@@ -41,5 +41,7 @@ if(document.querySelector(".customModal")){
             e.target.closest(".customModal").style.display = "none";
         });
     });
+}
+if(document.querySelector("#modal_GoToLogin")){
     document.querySelector("#modal_GoToLogin .btnColorH").setAttribute("href","../pages/login.html");
 }

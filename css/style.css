@@ -37,9 +37,9 @@ body{min-width: 1450px;;}
 article > h2,
 section > h2{opacity: 0;position: absolute;left:-99999px;z-index: -999;}
 
-.btnColorH{background: var(--color-highlight);color:white;border-radius: 5px;text-align: center;border:none;}
-.btnColorG{background:white;color:var(--color-76);border-radius: 5px;text-align: center;border:1px solid var(--color-c4);}
-.btnColorD{color:white;background:var(--color-76);border-radius: 5px;text-align: center;}
+.btnColorH{background: var(--color-highlight);color:white;border-radius: 5px;text-align: center;border:none;outline: none}
+.btnColorG{background:white;color:var(--color-76);border-radius: 5px;text-align: center;border:1px solid var(--color-c4);outline: none}
+.btnColorD{color:white;background:var(--color-76);border-radius: 5px;text-align: center;outline: none}
 .btnL{height: 68px;display: flex;align-items: center;justify-content: center;font-weight: bold;font-size:24px;;max-width: 100%;min-width: 220px;}
 .btnM{height: 60px;display: flex;align-items: center;justify-content: center;font-weight: bold;font-size:18px;padding:0 20px;max-width:100%;}
 .btnMS{height: 54px;display: flex;align-items: center;justify-content: center;font-weight: 700;font-size:16px;padding:0 20px;min-width: 166px;}
@@ -163,12 +163,22 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 .customForm fieldset.seller .sellerJoin{display: block;}
 
 .customForm fieldset label{margin:0 0 10px;display: block;font-size:16px;color:var(--color-76);}
+.customForm fieldset label input:-webkit-autofill,
+.customForm fieldset label input:-webkit-autofill:focus,
+.customForm fieldset label input:-webkit-autofill:active,
+.customForm fieldset label input:-webkit-autofill:hover{_background: inherit;box-shadow: 0 0 0 1000px white inset;}
 .customForm fieldset label input[type="password"],
 .customForm fieldset label input[type="text"]{width:100%;height:54px;border:1px solid var(--color-c4);font-size:16px;color:black;;border-bottom: 1px solid var(--color-c4);border-radius: 5px;padding:0 16px;margin:8px 0 0;transition: 0.2s;}
 .customForm fieldset label input[type="password"]::placeholder,
 .customForm fieldset label input[type="text"]::placeholder{color:var(--color-76);}
 .customForm fieldset label input[type="password"]:focus,
 .customForm fieldset label input[type="text"]:focus,
+.customForm fieldset label input[type="password"]:focus-within,
+.customForm fieldset label input[type="text"]:focus-within,
+.customForm fieldset label input[type="password"]:focus-visible,
+.customForm fieldset label input[type="text"]:focus-visible,
+.customForm fieldset label input[type="password"]:target,
+.customForm fieldset label input[type="text"]:target,
 .customForm fieldset label input[type="password"]:active,
 .customForm fieldset label input[type="text"]:active{outline: none;border-color: var(--color-highlight);}
 
@@ -187,7 +197,7 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 .customForm fieldset label.phone{margin:0;}
 .customForm fieldset label.phone .phonewrap{display: flex;align-items: center;justify-content: space-between;}
 .customForm fieldset label.phone .phonewrap input{width:152px;margin:8px 0 0;}
-.customForm fieldset label.phone .phonewrap input#phoneMid{margin:8px 12px 0;}
+.customForm fieldset label.phone .phonewrap input.phoneMid{margin:8px 12px 0;}
 .customForm fieldset label.phone .phonewrap > div{position: relative;}
 .customForm fieldset label.phone .phonewrap > div input{background: url(../img/icon-down-arrow.svg) no-repeat 90% 50%;cursor: pointer;transition: border 0.2s;}
 .customForm fieldset label.phone .phonewrap > div ul{position: absolute;left:0;top:66px;width:100%;height:150px;border:1px solid var(--color-c4);border-radius: 5px;;overflow: auto;display: none;}
@@ -203,12 +213,17 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 
 .customForm fieldset .joinform label.pw input,
 .customForm fieldset .joinform label.pwRe input{background: white url(../img/icon-check-off.svg) no-repeat 96% 50%;padding-right:60px;transition: 0.2s;}
-.customForm fieldset .joinform label.pw input.true,
-.customForm fieldset .joinform label.pwRe input.true{background: white url(../img/icon-check-on.svg) no-repeat 96% 50%;}
+.customForm fieldset .joinform label.pw.true input,
+.customForm fieldset .joinform label.pwRe.true input{background: white url(../img/icon-check-on.svg) no-repeat 96% 50%;}
 
 .customForm fieldset .warning{color:var(--color-negative);font-weight:normal;font-size:16px;display: none;margin:0 0 12px;display: none;}
 .customForm fieldset .entered{color:var(--color-highlight);font-weight:normal;font-size:16px;_display: none;margin:0 0 12px;display: none;}
-.customForm fieldset label.error + .warning{display: block;}
+.customForm fieldset label.error + .warning,
+.customForm fieldset label.enter + .entered{display: block;}
+.customForm fieldset label.phone.error + .warning,
+.customForm fieldset label.phone.enter + .entered,
+.customForm fieldset label.storename.error + .warning,
+.customForm fieldset label.storename.enter + .entered{margin:10px 0 0;}
 .customForm fieldset .logwarn{margin-top:35px;}
 .customForm fieldset .btnColorH{margin:35px 0 0;display: block;width: 100%;transition: 0.2s;}
 .customForm fieldset .btnColorH:hover{background: var(--color-76);}
@@ -218,7 +233,7 @@ input[type="checkbox"].checkR:checked + label{background: url(../img/check-box-F
 .customForm .join_info input[type="checkbox"]{display:none;}
 .customForm .join_info input[type="checkbox"] + label{margin-right:10px;cursor: pointer;flex-shrink: 0;}
 .customForm .join_info .agreeform a{font-weight: bold;text-decoration: underline;}
-.customForm .join_info .btnJoin{width:100%;margin:30px auto 0;}
+.customForm .join_info .btnJoin{width:100%;margin:30px auto 0;transition: 0.1s;}
 
 /* prdList -------------------------- */
 .prdList_banner{margin:0 0 80px;}

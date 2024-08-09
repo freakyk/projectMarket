@@ -106,24 +106,7 @@ const cartList = async function(el){
             </li>
         `;
         cartBody.insertAdjacentHTML('beforeend',cartListForm);
-
-        /*
-            - 장바구니에서 상품의 수량을 수정할 때, `+`나 `-` 버튼을 누르면 수량 수정을 위한 모달창이 나타납니다.
-            모달창에서 (상품 상세 페이지와 마찬가지로) 상품의 재고 수량을 초과하면 `+` 버튼은 비활성화됩니다.
-            - 선택된 정보만 총 상품금액과 할인, 배송비가 적용되어 총 결제할 가격이 나타나야 합니다.
-            - 상품의 `x` 버튼을 클릭할 시 상품 삭제를 재확인하는 모달 창이 중앙에 나타나야 합니다.
-            - 상품 삭제를 재확인하는 모달의 확인 버튼을 클릭하면 상품이 삭제되어야 합니다.
-            - 합쳐진 수량이 제품의 재고 수량 보다 많을 경우, 재고 수량이 초과 되었다는 모달창이 나타납니다.
-        */
-        // 상품수량변경, 삭제, 체크박스선택, 주문하기 등 (선택수량만 금액체크)
-
-
-
-
-
-
     }
-
 
     // 수량팝업 이벤트
     function editEventModal() {
@@ -164,13 +147,9 @@ const cartList = async function(el){
             let newValue = editModalInput.value;
             let itemId = editModal.getAttribute('data-itemid');
             let prdId = editModal.getAttribute('data-prdid');
-
-
-            
-            let itemcheck = true;
-
+            let itemcheck = document.querySelector(`li[data-itemid="${itemId}"] .cart_check input[type="checkbox"]`);
             editModal.style.display = "none";
-            editCount(memberToken, itemId, prdId, newValue, itemcheck);
+            editCount(memberToken, itemId, prdId, newValue, itemcheck.checked);
             document.querySelector(`li[data-itemid="${itemId}"] .quan_val`).value = newValue;
         });
     }
@@ -230,7 +209,71 @@ const cartList = async function(el){
         }
     });
 
-    // 상품 총합계
+    // input 실시간으로 체크하기
+    let allcheckBtn = document.querySelector('#cartWrap .head input#checkAll');
+    let checkBtns = document.querySelectorAll(`.cart_check input[type="checkbox"]`);
+    let trueEl = new Set();
+
+    // 전체선택버튼 활성화
+    allcheckBtn.addEventListener('change',function(e){
+        let allcheckStatus = e.target.checked;
+        if(allcheckStatus == true){
+            checkBtns.forEach(function(el){
+                el.checked = true;
+            })
+        }else{
+            checkBtns.forEach(function(el){
+                el.checked = false;
+            })
+        }
+    });
+    
+    checkBtns.forEach(function(el){
+        el.addEventListener('change',function(e){
+            let itemcheckStatus = e.target.checked;
+            let productId = e.target.closest('li').getAttribute('data-prdid');
+            let aaa = document.querySelector(`li[data-prdid="${productId}"] .checkR`);
+            
+            if(itemcheckStatus == true){
+                aaa.checked = true;
+            }else{
+                aaa.checked = false;   
+            }
+            console.log(productId, aaa);
+
+        });
+    })
+
+    // -----------------------------------------------------------------------------------------------
+    // input change시 체크박스값 가져오기, 전체선택시 change 변화값 리로드없이 반영
+    // 상품 체크박스, 수량변경 이벤트 체크 > cart item 상품금액 새로고침없이 수정
+    // 상품 체크박스, 상품삭제, 수량변경 이벤트 체크 > 하단 sum() 새로고침없이 수정
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
     function prdSum(){
         const sumAll = document.querySelector(".priceSum .priceAll strong");
         const sumDiscout = document.querySelector(".priceSum .priceDis strong");
@@ -272,6 +315,9 @@ const cartList = async function(el){
         sumFinal.textContent = sumCalc.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     }
     prdSum();
+
+    // -----------------------------------------------------------------------------------------------
+
 }
 
 // 상품 detail 정보 불러오기

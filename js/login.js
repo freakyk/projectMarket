@@ -1,15 +1,3 @@
-/*
-    - BUYER : 일반 구매자, SELLER : 판매자
-    - 구매자(buyer)
-        - ID : buyer1 PW: hodu0910
-        - ID : buyer2 PW: hodu0910
-        - ID : buyer3 PW: hodu0910
-    - 판매자(seller)
-        - ID : seller1 PW : hodu0910
-        - ID : seller2 PW : hodu0910
-        - ID : seller3 PW : hodu0910
-*/
-
 // 회원데이터 Request
 const url = "https://openmarket.weniv.co.kr/";
 const memberData = async function(id,pw,type){
